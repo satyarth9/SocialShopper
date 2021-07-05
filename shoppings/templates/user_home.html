@@ -22,7 +22,7 @@
                       <a class="nav-link" aria-current="page" href="#">My Shoppings</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" href="#">Contact</a>
+                      <a class="nav-link" href="#">Contact</a>
                     </li>
                   </ul>
                     <span>
@@ -31,6 +31,56 @@
                 </div>
               </div>
         </nav>
+    </div>
+    <div class="container px-4 mt-3">
+        <div class="row">
+            <div id="div-sidebar" class="col-2 rounded">
+            <div class="list-group">
+              <a href="{% url 'user_home' 'pr' %}" class="list-group-item list-group-item-action p-3 mt-1">Proposed</a>
+              <a href="{% url 'user_home' 'ac' %}" class="list-group-item list-group-item-action p-3 mt-1">Active</a>
+              <a href="{% url 'user_home' 'co' %}" class="list-group-item list-group-item-action p-3 mt-1 mb-1">Completed</a>
+            </div>
+            </div>
+            <div class="col-8 rounded">
+                <ul class="list-group list-group-flush">
+                    {% for shop in shoppings %}
+                    <li class="list-group-item">
+                        <div class="card">
+                          <div class="card-header text-center">
+                              <h4>{{shop.venue}}</h4>
+                          </div>
+                          <div class="card-body">
+                              <div class="row">
+                                  <div class="col-3">
+                                     <h5 class="card-title"><i class="far fa-calendar"></i> {{shop.date}}</h5>
+                                  </div>
+                                  <div class="col-7">
+                                    <div class="card" style="width: 18rem;">
+                                      <div class="card-body">
+                                        <h5 class="card-title">About Shopper</h5>
+                                          <div class="row">
+                                              <div class="col">Shoppings Done : {{shop.shopper.shops_done}}</div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-2">
+                                      <form method="post" action="{% url 'shopping_detail' shop.id %}">
+                                          {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary">View</button>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-2 bg-secondary">
+                Extras
+            </div>
+        </div>
     </div>
 
 
